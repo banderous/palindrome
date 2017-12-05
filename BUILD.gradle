@@ -1,0 +1,13 @@
+apply plugin: 'application'
+apply plugin: 'groovy'
+
+mainClassName = "com.alex.palindrome.Main"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+    compile 'com.google.guava:guava:23.0'
+}
