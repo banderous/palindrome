@@ -3,7 +3,6 @@ package com.alex.palindrome;
 import com.google.common.collect.Lists;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -29,44 +28,32 @@ public class Palindrome {
     public static Map<String, Integer> palindromesByIndex(String input) {
         Map<String, Integer> result = new HashMap<>();
         for (int i = 0; i < input.length() - 1; i++) {
-            int start = i;
-            int end = i + 1;
-            int index = -1;
-            int endIndex = -1;
-
-            // Look for even length palindromes.
-            if (input.charAt(start) == input.charAt(end)) {
-                index = start;
-                endIndex = end;
-                while (true) {
-                    start--;
-                    end++;
-                    // Look for even length palindromes.
-                    if (start >= 0 && end < input.length() &&
-                            input.charAt(start) == input.charAt(end)) {
-                        index = start;
-                        endIndex = end;
-                    } else {
-                        break;
-                    }
-                }
+            int searchStart = i;
+            int searchEnd = i + 1;
+            int foundStart = -1;
+            int foundEnd = -1;
+            // Search for even length palindromes.
+            while (searchStart >= 0 && searchEnd < input.length() &&
+                    input.charAt(searchStart) == input.charAt(searchEnd)) {
+                foundStart = searchStart;
+                foundEnd = searchEnd;
+                searchStart--;
+                searchEnd++;
             }
             // Look for odd length palindromes
-            start = i - 1;
-            end = i + 1;
-            while (start >= 0 && end < input.length() &&
-                    input.charAt(start) == input.charAt(end)) {
-                if (end - start > endIndex - index) {
-                    index = start;
-                    endIndex = end;
-                }
-                start--;
-                end++;
+            searchStart = i - 1;
+            searchEnd = i + 1;
+            while (searchStart >= 0 && searchEnd < input.length() &&
+                    input.charAt(searchStart) == input.charAt(searchEnd)) {
+                foundStart = searchStart;
+                foundEnd = searchEnd;
+                searchStart--;
+                searchEnd++;
             }
-            if (index != -1) {
-                String palindrome = input.substring(index, endIndex + 1);
+            if (foundStart != -1) {
+                String palindrome = input.substring(foundStart, foundEnd + 1);
                 if (!result.containsKey(palindrome)) {
-                    result.put(palindrome, index);
+                    result.put(palindrome, foundStart);
                 }
             }
         }
