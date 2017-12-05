@@ -3,6 +3,7 @@ package com.alex.palindrome;
 import com.google.common.collect.Lists;
 
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -10,14 +11,18 @@ import java.util.stream.Collectors;
  */
 public class Palindrome {
 
+    /*
+        Find the longest 3 unique palindromes in a string.
+        A palindrome is represented as a list of 3 strings;
+        palindrome, index & length.
+     */
     public static List<List<String>> longest3Palindromes(String s) {
         Map<String, Integer> allPalindromes = palindromesByIndex(s);
-        List<String> keys = new ArrayList<>();
-        keys.addAll(allPalindromes.keySet());
-
-        keys.sort(Comparator.comparingInt(String::length).reversed());
+        // Sort the palindromes by length descending.
+        List<String> keys = allPalindromes.keySet().stream().sorted(
+                Comparator.comparingInt(String::length).reversed()).limit(3).collect(Collectors.toList());
         List<List<String>> result = new ArrayList<>();
-        for (String key : keys.stream().limit(3).collect(Collectors.toList())) {
+        for (String key : keys) {
             String index = allPalindromes.get(key).toString();
             result.add(Lists.newArrayList(key, index, String.valueOf(key.length())));
         }
@@ -25,6 +30,12 @@ public class Palindrome {
         return result;
     }
 
+    /*
+        Get all palindromes of a string and their indexes.
+        Running time is O(N^2) on the length of input.
+        A linear time solution is possible
+        but not in the time I have!
+     */
     public static Map<String, Integer> palindromesByIndex(String input) {
         Map<String, Integer> result = new HashMap<>();
         for (int i = 0; i < input.length() - 1; i++) {
