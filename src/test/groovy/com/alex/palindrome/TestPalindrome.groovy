@@ -63,11 +63,18 @@ public class TestPalindrome extends Specification {
         def input = 'sqrrqabccbatudefggfedvwhijkllkjihxymnnmzpop'
         def output = Palindrome.longest3Palindromes(input)
         then:
-        output == [
-                ['hijkllkjih', '23', '10'],
-                ['defggfed', '13', '8'],
-                ['abccba', '5', '6']
-        ]
+        with(output[0]) {
+            getKey() == 'hijkllkjih'
+            getValue() == 23
+        }
+        with(output[1]) {
+            getKey() == 'defggfed'
+            getValue() == 13
+        }
+        with(output[2]) {
+            getKey() == 'abccba'
+            getValue() == 5
+        }
     }
 }
 

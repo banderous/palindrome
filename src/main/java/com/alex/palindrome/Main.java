@@ -1,6 +1,7 @@
 package com.alex.palindrome;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by alex on 04/12/2017.
@@ -11,10 +12,9 @@ public class Main {
             System.out.println("Usage: input");
             return;
         }
-        List<List<String>> summary = Palindrome.longest3Palindromes(args[0]);
-        for (List<String> strings : summary) {
-            String line = String.format("Text: %s, Index: %s, Length: %s", strings.toArray());
+        Palindrome.longest3Palindromes(args[0]).forEach(item-> {
+            String line = String.format("Text: %s, Index: %s, Length: %s", item.getKey(), item.getValue(), item.getKey().length());
             System.out.println(line);
-        }
+        });
     }
 }

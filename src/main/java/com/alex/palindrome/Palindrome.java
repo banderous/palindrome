@@ -13,21 +13,18 @@ public class Palindrome {
 
     /*
         Find the longest 3 unique palindromes in a string.
-        A palindrome is represented as a list of 3 strings;
-        palindrome, index & length.
+        A palindrome is represented as a Map entry of string and index,
+        here added to a list to allow ordering by length.
      */
-    public static List<List<String>> longest3Palindromes(String s) {
+    public static List<Map.Entry<String, Integer>> longest3Palindromes(String s) {
         Map<String, Integer> allPalindromes = palindromesByIndex(s);
-        // Sort the palindromes by length descending.
-        List<String> keys = allPalindromes.keySet().stream().sorted(
-                Comparator.comparingInt(String::length).reversed()).limit(3).collect(Collectors.toList());
-        List<List<String>> result = new ArrayList<>();
-        for (String key : keys) {
-            String index = allPalindromes.get(key).toString();
-            result.add(Lists.newArrayList(key, index, String.valueOf(key.length())));
-        }
 
-        return result;
+        // Sort the palindromes on their length.
+        Comparator<Map.Entry<String, Integer>> compare = (a,b)-> {
+            return Integer.valueOf(b.getKey().length()).compareTo(a.getKey().length());
+        };
+        // return the first 3.
+        return allPalindromes.entrySet().stream().sorted(compare).limit(3).collect(Collectors.toList());
     }
 
     /*
