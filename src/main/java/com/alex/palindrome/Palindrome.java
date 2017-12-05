@@ -1,9 +1,9 @@
 package com.alex.palindrome;
 
-import com.google.common.collect.Lists;
-
-import java.util.*;
-import java.util.stream.Collector;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -20,7 +20,7 @@ public class Palindrome {
         Map<String, Integer> allPalindromes = palindromesByIndex(s);
 
         // Sort the palindromes on their length.
-        Comparator<Map.Entry<String, Integer>> compare = (a,b)-> {
+        Comparator<Map.Entry<String, Integer>> compare = (a, b) -> {
             return Integer.valueOf(b.getKey().length()).compareTo(a.getKey().length());
         };
         // return the first 3.
