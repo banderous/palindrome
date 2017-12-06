@@ -10,3 +10,10 @@ repositories {
 dependencies {
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
 }
+
+run {
+    def input = findProperty('input')
+    if (input) {
+        args input
+    }
+}

@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class Palindrome {
 
     /*
-        Find the longest 3 unique palindromes in a string.
+        Get the longest 3 unique palindromes in a string.
         A palindrome is represented as a Tuple of string and index,
         added to a list to allow ordering by length.
      */
