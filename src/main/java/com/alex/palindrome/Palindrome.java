@@ -37,28 +37,22 @@ public class Palindrome {
     public static Map<String, Integer> palindromesByIndex(String input) {
         Map<String, Integer> result = new HashMap<>();
         for (int i = 0; i < input.length() - 1; i++) {
-            int searchStart = i;
-            int searchEnd = i + 1;
             int foundStart = -1;
             int foundEnd = -1;
-            // Search for even length palindromes.
-            while (searchStart >= 0 && searchEnd < input.length() &&
-                    input.charAt(searchStart) == input.charAt(searchEnd)) {
-                foundStart = searchStart;
-                foundEnd = searchEnd;
-                searchStart--;
-                searchEnd++;
+            // Search outwards for both odd and even length palindromes.
+            for (int t = 0; t < 2; t++) {
+                int searchStart = i - t;
+                int searchEnd = i + 1;
+                // Search for even length palindromes.
+                while (searchStart >= 0 && searchEnd < input.length() &&
+                        input.charAt(searchStart) == input.charAt(searchEnd)) {
+                    foundStart = searchStart;
+                    foundEnd = searchEnd;
+                    searchStart--;
+                    searchEnd++;
+                }
             }
-            // Look for odd length palindromes
-            searchStart = i - 1;
-            searchEnd = i + 1;
-            while (searchStart >= 0 && searchEnd < input.length() &&
-                    input.charAt(searchStart) == input.charAt(searchEnd)) {
-                foundStart = searchStart;
-                foundEnd = searchEnd;
-                searchStart--;
-                searchEnd++;
-            }
+
             if (foundStart != -1) {
                 String palindrome = input.substring(foundStart, foundEnd + 1);
                 if (!result.containsKey(palindrome)) {
