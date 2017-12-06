@@ -43,7 +43,6 @@ public class Palindrome {
             for (int t = 0; t < 2; t++) {
                 int searchStart = i - t;
                 int searchEnd = i + 1;
-                // Search for even length palindromes.
                 while (searchStart >= 0 && searchEnd < input.length() &&
                         input.charAt(searchStart) == input.charAt(searchEnd)) {
                     foundStart = searchStart;
