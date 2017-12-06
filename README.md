@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-A Java 1.8 runtime
+JDK 1.8
 
 ## Build & test
 
